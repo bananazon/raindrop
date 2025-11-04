@@ -57,11 +57,14 @@ func init() {
 	RaindropLogFile = filepath.Join(RaindropHome, "raindrop.log")
 	Logger = util.ConfigureLogger(FlagNoColor, RaindropLogFile)
 
+	screenHeight, screenWidth := util.GetScreenDimensions()
+
 	ctx := &context.AppContext{
 		Logger:                    util.ConfigureLogger(FlagNoColor, RaindropLogFile),
 		RaindropHome:              RaindropHome,
 		RaindropConfig:            RaindropConfig,
-		ScreenWidth:               util.GetScreenWidth(),
+		ScreenHeight:              screenHeight,
+		ScreenWidth:               screenWidth,
 		ValidCollectionsSortOrder: []string{"title", "-title", "-count"},
 		ValidCollectionsViews:     []string{"grid", "list", "masonry", "simple"},
 		ValidStyles:               []string{"ascii", "bright", "dark", "light", "list"},
