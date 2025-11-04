@@ -16,6 +16,7 @@ func NewBookmarksCmd(ctx *context.AppContext) (cmdC *cobra.Command) {
 	cmdC.AddCommand(newAddBookmarkCmd(ctx))
 	cmdC.AddCommand(newBackupBookmarksCmd(ctx))
 	cmdC.AddCommand(newListBookmarksCmd(ctx))
+	cmdC.AddCommand(newOpenBookmarkCmd(ctx))
 	cmdC.AddCommand(newRemoveBookmarkCmd(ctx))
 	cmdC.AddCommand(newUpdateBookmarkCmd(ctx))
 
