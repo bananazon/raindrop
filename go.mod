@@ -5,6 +5,8 @@ go 1.24.8
 require (
 	github.com/djherbis/times v1.6.0
 	github.com/jedib0t/go-pretty/v6 v6.6.8
+	github.com/nexidian/gocliselect v1.0.0
+	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.10.1
 	github.com/wayneashleyberry/terminal-dimensions v1.1.0
@@ -14,6 +16,7 @@ require (
 )
 
 require (
+	github.com/buger/goterm v1.0.3 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
@@ -21,6 +24,7 @@ require (
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
 	github.com/onsi/ginkgo v1.16.5 // indirect
 	github.com/onsi/gomega v1.38.2 // indirect
+	github.com/pkg/term v1.1.0 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/spf13/pflag v1.0.9 // indirect
 	golang.org/x/crypto v0.43.0 // indirect

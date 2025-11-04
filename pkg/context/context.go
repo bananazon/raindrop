@@ -51,6 +51,7 @@ type AppContext struct {
 	Logger                           *logrus.Logger
 	RaindropConfig                   string
 	RaindropHome                     string
+	ScreenHeight                     int
 	ScreenWidth                      int
 	RD                               *raindrop.Raindrop
 	ValidCollectionsSortOrder        []string

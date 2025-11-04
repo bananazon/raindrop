@@ -130,15 +130,21 @@ func VerifyDirectory(path string) error {
 	}
 }
 
-func GetScreenWidth() int {
+func GetScreenDimensions() (int, int) {
 	var (
-		err   error
-		width uint
+		err    error
+		height uint
+		width  uint
 	)
 	width, err = terminal.Width()
 	if err != nil {
-		return 132
+		width = 80
 	}
 
-	return int(width)
+	height, err = terminal.Height()
+	if err != nil {
+		height = 25
+	}
+
+	return int(height), int(width)
 }
