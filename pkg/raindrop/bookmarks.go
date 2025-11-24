@@ -37,7 +37,8 @@ func (r *Raindrop) BackupBookmarks(flagPrune bool) (err error) {
 		downloaded, err := r.API.DownloadFileIfMissing(bookmark.Title, bookmark.Id, r.RaindropRoot)
 		if err != nil {
 			r.Logger.Warn(err.Error())
-			failedIds[bookmark.Id] = true
+			// Not being able to download the file shouldn't mark it as failed in terms of backup
+			// failedIds[bookmark.Id] = true
 		}
 
 		if downloaded {
@@ -49,7 +50,8 @@ func (r *Raindrop) BackupBookmarks(flagPrune bool) (err error) {
 		downloaded, err := r.API.DownloadFileIfMissing(bookmark.Title, bookmark.Id, r.RaindropRoot)
 		if err != nil {
 			r.Logger.Warn(err.Error())
-			failedIds[bookmark.Id] = true
+			// Not being able to download the file shouldn't mark it as failed in terms of backup
+			// failedIds[bookmark.Id] = true
 		}
 
 		if downloaded {
