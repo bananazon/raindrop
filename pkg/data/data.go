@@ -32,6 +32,15 @@ type SortCollectionPayload struct {
 	Sort string `json:"sort,omitempty"`
 }
 
+type RemoveHighlightItem struct {
+	Id   string `json:"_id,omitempty"`
+	Text string `json:"text,omitempty"`
+}
+
+type RemoveHighlightsPayload struct {
+	Highlights []RemoveHighlightItem `json:"highlights,omitempty"`
+}
+
 type RemoveTagsPayload struct {
 	CollectionId int64    `json:"collectionId,omitempty"`
 	Tags         []string `json:"tags,omitempty"`
@@ -131,6 +140,19 @@ type UpdateCollectionResult struct {
 	ErrorMessage string     `json:"errorMessage" yaml:"errorMessage"`
 }
 
+// Highlights
+type ListHighlightsResult struct {
+	Result       bool         `json:"result" yaml:"result"`
+	Items        []*Highlight `json:"items" yaml:"items"`
+	ErrorMessage string       `json:"errorMessage" yaml:"errorMessage"`
+}
+
+type RemoveHighlightResult struct {
+	Result       bool                 `json:"result" yaml:"result"`
+	Item         RemovedHighlightItem `json:"item" yaml:"item"`
+	ErrorMessage string               `json:"errorMessage" yaml:"errorMessage"`
+}
+
 // Tags
 type ListTagsResult struct {
 	Result       bool   `json:"result" yaml:"result"`
@@ -185,28 +207,39 @@ type UserRef struct {
 //
 
 type Bookmark struct {
-	Id           uint64        `json:"_id" yaml:"_id"`
-	Link         string        `json:"link" yaml:"link"`
-	Title        string        `json:"title" yaml:"title"`
-	Excerpt      string        `json:"excerpt" yaml:"excerpt"`
-	Note         string        `json:"note" yaml:"note"`
-	Type         string        `json:"type" yaml:"type"`
-	User         UserRef       `json:"user" yaml:"user"`
-	Cover        string        `json:"cover" yaml:"cover"`
-	Media        []LinkRef     `json:"media" yaml:"media"`
-	Tags         []string      `json:"tags" yaml:"tags"`
-	Important    bool          `json:"important" yaml:"important"`
-	Reminder     ReminderRef   `json:"reminder" yaml:"reminder"`
-	Removed      bool          `json:"removed" yaml:"removed"`
-	Created      time.Time     `json:"created" yaml:"created"`
-	Collection   CollectionRef `json:"collection" yaml:"collection"`
-	Highlights   []any         `json:"highlights" yaml:"highlights"`
-	LastUpdate   time.Time     `json:"lastUpdate" yaml:"lastUpdate"`
-	Domain       string        `json:"domain" yaml:"domain"`
-	CreatorRef   CreatorRef    `json:"creatorRef" yaml:"creatorRef"`
-	Sort         int64         `json:"sort" yaml:"sort"`
-	CollectionId int64         `json:"collectionId" yaml:"collectionId"`
-	Cache        Cache         `json:"cache" yaml:"cache"`
+	Id           uint64              `json:"_id" yaml:"_id"`
+	Link         string              `json:"link" yaml:"link"`
+	Title        string              `json:"title" yaml:"title"`
+	Excerpt      string              `json:"excerpt" yaml:"excerpt"`
+	Note         string              `json:"note" yaml:"note"`
+	Type         string              `json:"type" yaml:"type"`
+	User         UserRef             `json:"user" yaml:"user"`
+	Cover        string              `json:"cover" yaml:"cover"`
+	Media        []LinkRef           `json:"media" yaml:"media"`
+	Tags         []string            `json:"tags" yaml:"tags"`
+	Important    bool                `json:"important" yaml:"important"`
+	Reminder     ReminderRef         `json:"reminder" yaml:"reminder"`
+	Removed      bool                `json:"removed" yaml:"removed"`
+	Created      time.Time           `json:"created" yaml:"created"`
+	Collection   CollectionRef       `json:"collection" yaml:"collection"`
+	Highlights   []BookmarkHighlight `json:"highlights" yaml:"highlights"`
+	LastUpdate   time.Time           `json:"lastUpdate" yaml:"lastUpdate"`
+	Domain       string              `json:"domain" yaml:"domain"`
+	CreatorRef   CreatorRef          `json:"creatorRef" yaml:"creatorRef"`
+	Sort         int64               `json:"sort" yaml:"sort"`
+	CollectionId int64               `json:"collectionId" yaml:"collectionId"`
+	Cache        Cache               `json:"cache" yaml:"cache"`
+}
+
+type BookmarkHighlight struct {
+	Text       string    `json:"text" yaml:"text"`
+	Note       string    `json:"note" yaml:"note"`
+	Color      string    `json:"color" yaml:"color"`
+	Position   uint64    `json:"position" yaml:"position"`
+	Created    time.Time `json:"created" yaml:"created"`
+	LastUpdate time.Time `json:"lastUpdate" yaml:"lastUpdate"`
+	CreatorRef uint64    `json:"creatorRef" yaml:"creatorRef"`
+	Id         string    `json:"_id" yaml:"_id"`
 }
 
 //
@@ -249,24 +282,25 @@ type Collection struct {
 	Author bool `json:"author" yaml:"autor"`
 }
 
-// type CollectionChild struct {
-// 	Access        *CollectionAccess `json:"access" yaml:"access"`
-// 	Collaborators map[string]string `json:"collaborators" yaml:"collaborators"`
-// 	Color         string            `json:"color" yaml:"color"`
-// 	Count         uint64            `json:"count" yaml:"count"`
-// 	Cover         []string          `json:"cover" yaml:"cover"`
-// 	Created       time.Time         `json:"created" yaml:"created"`
-// 	CreatorRef    CreatorRef        `json:"creatorRef" yaml:"creatorRef"`
-// 	Expanded      bool              `json:"expanded" yaml:"expanded"`
-// 	Id            uint64            `json:"_id" yaml:"_id"`
-// 	LastUpdate    time.Time         `json:"lastUpdate" yaml:"lastUpdate"`
-// 	Parent        ParentRef         `json:"parent" yaml:"parent"`
-// 	Public        bool              `json:"public" yaml:"public"`
-// 	Sort          int               `json:"sort" yaml:"sort"`
-// 	Title         string            `json:"title" yaml:"title"`
-// 	User          UserRef           `json:"user" yaml:"user"`
-// 	View          string            `json:"view" yaml:"view"`
-// }
+//
+// Highlight
+//
+
+type Highlight struct {
+	Id      string    `json:"_id" yaml:"_id"`
+	Text    string    `json:"text" yaml:"text"`
+	Title   string    `json:"title" yaml:"title"`
+	Color   string    `json:"color" yaml:"color"`
+	Note    string    `json:"note" yaml:"note"`
+	Created time.Time `json:"created" yaml:"created"`
+	Tags    []string  `json:"tags" yaml:"tags"`
+	Link    string    `json:"link" yaml:"link"`
+}
+
+type RemovedHighlightItem struct {
+	Id         uint64      `json:"_id" yaml:"_id"`
+	Highlights []Highlight `json:"highlights" yaml:"highlights"`
+}
 
 //
 // Tag
