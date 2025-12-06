@@ -29,6 +29,7 @@ func (ac *APIClient) DownloadFileIfMissing(title string, id uint64, exportDir st
 	url := downloadUrl.String()
 
 	req, _ := http.NewRequestWithContext(etc.Context(), "GET", url, nil)
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", ac.Token))
 
 	resp, err := ac.Client.Do(req)
 	if err != nil {
