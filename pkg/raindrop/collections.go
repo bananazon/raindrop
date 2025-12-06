@@ -108,6 +108,21 @@ func (r *Raindrop) ListCollections() (collections map[uint64]*data.Collection, e
 	return collections, nil
 }
 
+func (r *Raindrop) ListCollectionsChildren() (children map[uint64]*data.Collection, err error) {
+	children = make(map[uint64]*data.Collection)
+
+	listCollectionsChildrenResult, err := r.API.ListCollectionsChildren()
+	if err != nil {
+		return children, err
+	}
+
+	for _, child := range listCollectionsChildrenResult.Items {
+		children[child.Id] = child
+	}
+
+	return children, nil
+}
+
 func (r *Raindrop) LoadCollections() (err error) {
 	collections := make([]*data.Collection, 0)
 
@@ -129,10 +144,6 @@ func (r *Raindrop) LoadCollections() (err error) {
 
 	return nil
 }
-
-// func r(* Raindrop) ListCollectionChildren() {
-
-// }
 
 func (r *Raindrop) GetCollectionChanges() (new []*data.Collection, changed []*data.Collection, removed []uint64, err error) {
 	collections, err := r.getAllCollections()

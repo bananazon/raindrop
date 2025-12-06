@@ -65,9 +65,31 @@ func (ac *APIClient) ListCollections() (data.ListCollectionsResult, error) {
 	return listCollectionsResult, nil
 }
 
-// func (ac *APIClient) ListCollectionChildren() (data.ListCollectionsChildrenResult, error) {
+func (ac *APIClient) ListCollectionsChildren() (data.ListCollectionsChildrenResult, error) {
+	var (
+		err                           error
+		listCollectionsChildrenResult data.ListCollectionsChildrenResult
+		listChildrenUrl               url.URL
+		response                      APIResponse
+	)
 
-// }
+	listChildrenUrl = url.URL{Scheme: "https", Host: apiBase, Path: fmt.Sprintf("rest/%s/collections/childrens", apiVersion)}
+	response = ac.Request(APIRequest{Method: "GET", URL: listChildrenUrl})
+	if !response.Success {
+		return listCollectionsChildrenResult, response.Error
+	}
+
+	err = json.Unmarshal(response.Body, &listCollectionsChildrenResult)
+	if err != nil {
+		return listCollectionsChildrenResult, err
+	}
+
+	if !listCollectionsChildrenResult.Result {
+		return listCollectionsChildrenResult, fmt.Errorf("list collections children returned false: %s", listCollectionsChildrenResult.ErrorMessage)
+	}
+
+	return listCollectionsChildrenResult, nil
+}
 
 func (ac *APIClient) SortCollections(payload data.SortCollectionPayload) (data.SortCollectionsResult, error) {
 	var (

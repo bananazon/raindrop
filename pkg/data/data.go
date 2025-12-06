@@ -109,10 +109,10 @@ type ListCollectionsResult struct {
 }
 
 type ListCollectionsChildrenResult struct {
-	Result       bool               `json:"result" yaml:"result"`
-	Items        []*CollectionChild `json:"items" yaml:"items"`
-	Count        int                `json:"count" yaml:"count"`
-	ErrorMessage string             `json:"errorMessage" yaml:"errorMessage"`
+	Result       bool          `json:"result" yaml:"result"`
+	Items        []*Collection `json:"items" yaml:"items"`
+	Count        int           `json:"count" yaml:"count"`
+	ErrorMessage string        `json:"errorMessage" yaml:"errorMessage"`
 }
 
 type RemoveCollectionResult struct {
@@ -163,7 +163,7 @@ type CreatorRef struct {
 	Id     int64  `json:"_id" yaml:"_id"`
 	Avatar string `json:"avatar" yaml:"avatar"`
 	Name   string `json:"name" yaml:"name"`
-	Email  string `email:"link" yaml:"email"`
+	Email  string `json:"email" yaml:"email"`
 }
 
 type LinkRef struct {
@@ -220,45 +220,53 @@ type CollectionAccess struct {
 	Draggable bool   `json:"draggable" yaml:"draggable"`
 }
 
-type Collection struct {
-	Id          uint64           `json:"_id" yaml:"_id"`
-	Title       string           `json:"title" yaml:"title"`
-	Description string           `json:"description" yaml:"description"`
-	User        UserRef          `json:"user" yaml:"user"`
-	Public      bool             `json:"public" yaml:"public"`
-	View        string           `json:"view" yaml:"view"`
-	Count       uint64           `json:"count" yaml:"count"`
-	Cover       []string         `json:"cover" yaml:"cover"`
-	Expanded    bool             `json:"expanded" yaml:"expanded"`
-	CreatorRef  CreatorRef       `json:"creatorRef" yaml:"creatorRef"`
-	LastAction  time.Time        `json:"lastAction" yaml:"lastAction"`
-	Created     time.Time        `json:"created" yaml:"created"`
-	LastUpdate  time.Time        `json:"lastUpdate" yaml:"lastUpdate"`
-	Parent      uint64           `json:"parent" yaml:"parent"`
-	Sort        uint64           `json:"sort" yaml:"sort"`
-	Slug        string           `json:"slug" yaml:"slug"`
-	Color       string           `json:"color" yaml:"color"`
-	Access      CollectionAccess `json:"access" yaml:"access"`
-	Author      bool             `json:"author" yaml:"autor"`
+type ParentRef struct {
+	Ref string `json:"$ref" yaml:"$ref"`
+	Id  uint64 `json:"$id" yaml:"$id"`
 }
 
-type CollectionChild struct {
-	Id            uint64            `json:"_id" yaml:"_id"`
-	Access        *CollectionAccess `json:"access" yaml:"access"`
-	Collaborators map[string]string `json:"collaborators" yaml:"collaborators"`
-	Color         string            `json:"color" yaml:"color"`
-	Count         uint64            `json:"count" yaml:"count"`
-	Cover         []string          `json:"cover" yaml:"cover"`
-	Created       time.Time         `json:"created" yaml:"created"`
-	Expanded      bool              `json:"expanded" yaml:"expanded"`
-	LastUpdate    time.Time         `json:"lastUpdate" yaml:"lastUpdate"`
-	Parent        map[string]uint64 `json:"parent" yaml:"parent"`
-	Public        bool              `json:"public" yaml:"public"`
-	Sort          uint64            `json:"sort" yaml:"sort"`
-	Title         string            `json:"title" yaml:"title"`
-	User          UserRef           `json:"user" yaml:"user"`
-	View          string            `json:"view" yaml:"view"`
+type Collection struct {
+	Access        CollectionAccess `json:"access" yaml:"access"`
+	Collaborators UserRef          `json:"collaborators" yaml:"collaborators"`
+	Color         string           `json:"color" yaml:"color"`
+	Count         uint64           `json:"count" yaml:"count"`
+	Cover         []string         `json:"cover" yaml:"cover"`
+	Created       time.Time        `json:"created" yaml:"created"`
+	CreatorRef    CreatorRef       `json:"creatorRef" yaml:"creatorRef"`
+	Description   string           `json:"description" yaml:"description"`
+	Expanded      bool             `json:"expanded" yaml:"expanded"`
+	Id            uint64           `json:"_id" yaml:"_id"`
+	LastAction    time.Time        `json:"lastAction" yaml:"lastAction"`
+	LastUpdate    time.Time        `json:"lastUpdate" yaml:"lastUpdate"`
+	Parent        ParentRef        `json:"parent" yaml:"parent"`
+	Public        bool             `json:"public" yaml:"public"`
+	Slug          string           `json:"slug" yaml:"slug"`
+	Sort          int64            `json:"sort" yaml:"sort"`
+	Title         string           `json:"title" yaml:"title"`
+	User          UserRef          `json:"user" yaml:"user"`
+	View          string           `json:"view" yaml:"view"`
+
+	Author bool `json:"author" yaml:"autor"`
 }
+
+// type CollectionChild struct {
+// 	Access        *CollectionAccess `json:"access" yaml:"access"`
+// 	Collaborators map[string]string `json:"collaborators" yaml:"collaborators"`
+// 	Color         string            `json:"color" yaml:"color"`
+// 	Count         uint64            `json:"count" yaml:"count"`
+// 	Cover         []string          `json:"cover" yaml:"cover"`
+// 	Created       time.Time         `json:"created" yaml:"created"`
+// 	CreatorRef    CreatorRef        `json:"creatorRef" yaml:"creatorRef"`
+// 	Expanded      bool              `json:"expanded" yaml:"expanded"`
+// 	Id            uint64            `json:"_id" yaml:"_id"`
+// 	LastUpdate    time.Time         `json:"lastUpdate" yaml:"lastUpdate"`
+// 	Parent        ParentRef         `json:"parent" yaml:"parent"`
+// 	Public        bool              `json:"public" yaml:"public"`
+// 	Sort          int               `json:"sort" yaml:"sort"`
+// 	Title         string            `json:"title" yaml:"title"`
+// 	User          UserRef           `json:"user" yaml:"user"`
+// 	View          string            `json:"view" yaml:"view"`
+// }
 
 //
 // Tag
