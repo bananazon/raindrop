@@ -130,6 +130,10 @@ func (r *Raindrop) LoadCollections() (err error) {
 	return nil
 }
 
+// func r(* Raindrop) ListCollectionChildren() {
+
+// }
+
 func (r *Raindrop) GetCollectionChanges() (new []*data.Collection, changed []*data.Collection, removed []uint64, err error) {
 	collections, err := r.getAllCollections()
 	if err != nil {
