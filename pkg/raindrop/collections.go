@@ -9,7 +9,6 @@ import (
 
 	"github.com/bananazon/raindrop/pkg/data"
 	"github.com/bananazon/raindrop/pkg/util"
-	"github.com/kr/pretty"
 	"gopkg.in/yaml.v3"
 )
 
@@ -102,8 +101,6 @@ func (r *Raindrop) ListCollections() (collections map[uint64]*data.Collection, e
 	for _, collection := range listCollectionsResult.Items {
 		collections[collection.Id] = collection
 	}
-
-	pretty.Println(collections)
 
 	return collections, nil
 }
