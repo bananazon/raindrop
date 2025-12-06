@@ -65,9 +65,9 @@ func (ac *APIClient) ListCollections() (data.ListCollectionsResult, error) {
 	return listCollectionsResult, nil
 }
 
-func (ac *APIClient) ListCollectionChildren() (data.ListCollectionsChildrenResult, error) {
+// func (ac *APIClient) ListCollectionChildren() (data.ListCollectionsChildrenResult, error) {
 
-}
+// }
 
 func (ac *APIClient) SortCollections(payload data.SortCollectionPayload) (data.SortCollectionsResult, error) {
 	var (
