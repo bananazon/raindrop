@@ -8,6 +8,7 @@ import (
 	"github.com/bananazon/raindrop/cmd/bookmarks"
 	"github.com/bananazon/raindrop/cmd/collections"
 	"github.com/bananazon/raindrop/cmd/encrypt"
+	"github.com/bananazon/raindrop/cmd/highlights"
 	"github.com/bananazon/raindrop/cmd/tags"
 	"github.com/bananazon/raindrop/pkg/context"
 	"github.com/bananazon/raindrop/pkg/raindrop"
@@ -70,5 +71,6 @@ func init() {
 	RootCmd.AddCommand(bookmarks.NewBookmarksCmd(ctx))
 	RootCmd.AddCommand(collections.NewCollectionsCmd(ctx))
 	RootCmd.AddCommand(encrypt.NewEncryptTokenCmd(ctx))
+	RootCmd.AddCommand(highlights.NewHighlightsCmd(ctx))
 	RootCmd.AddCommand(tags.NewTagsCmd(ctx))
 }
