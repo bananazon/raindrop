@@ -29,6 +29,8 @@ type AppContext struct {
 	FlagPrune                        bool
 	FlagRemoveBookmarkId             int64
 	FlagRemoveCollectionId           int64
+	FlagRemoveHighlightBookmarkId    int64
+	FlagRemoveHighlightHighlightId   []string
 	FlagRemoveTagsCollectionId       int64
 	FlagRemoveTagsTagNames           []string
 	FlagRenameTagCollectionId        int64
@@ -76,10 +78,10 @@ func (ac *AppContext) GetTableFlags(cmd *cobra.Command) {
 //
 
 func (ac *AppContext) GetAddBookmarkFlags(cmd *cobra.Command) {
-	cmd.Flags().Int64VarP(&ac.FlagAddBookmarkCollectionId, "collection", "c", -1, "The collection ID of the new raindrop (use 'raindrop collections list' to find the ID)")
+	cmd.Flags().Int64VarP(&ac.FlagAddBookmarkCollectionId, "collection", "c", -1, "The collection ID of the new bookmark (use 'raindrop collections list' to find the ID)")
 	cmd.Flags().StringVarP(&ac.FlagAddBookmarkExcerpt, "excerpt", "e", "", "A brief description of the link")
-	cmd.Flags().StringVarP(&ac.FlagAddBookmarkTitle, "title", "t", "", "The title for the new raindrop")
-	cmd.Flags().StringVarP(&ac.FlagAddBookmarkLink, "link", "l", "", "The URL for the new raindrop")
+	cmd.Flags().StringVarP(&ac.FlagAddBookmarkTitle, "title", "t", "", "The title for the new bookmark")
+	cmd.Flags().StringVarP(&ac.FlagAddBookmarkLink, "link", "l", "", "The URL for the new bookmark")
 	cmd.Flags().StringVarP(&ac.FlagAddBookmarkNote, "note", "n", "", "Add a note to the bookmark")
 	cmd.Flags().StringSliceVar(&ac.FlagAddBookmarkHighlight, "highlight", []string{}, "Bookmark highlight to set; can be used more than once")
 	cmd.Flags().BoolVarP(&ac.FlagAddBookmarkImportant, "important", "i", false, "Set the important flag to true")
@@ -97,10 +99,10 @@ func (ac *AppContext) GetRemoveBookmarkFlags(cmd *cobra.Command) {
 
 func (ac *AppContext) GetUpdateBookmarkFlags(cmd *cobra.Command) {
 	cmd.Flags().Int64Var(&ac.FlagUpdateBookmarkBookmarkId, "id", -1, "The bookmark ID (use 'raindrop bookmarks list' to find the ID)")
-	cmd.Flags().Int64VarP(&ac.FlagUpdateBookmarkCollectionId, "collection", "c", -1, "The collection ID of the new raindrop (use 'raindrop collections list' to find the ID)")
+	cmd.Flags().Int64VarP(&ac.FlagUpdateBookmarkCollectionId, "collection", "c", -1, "The collection ID of the bookmark (use 'raindrop collections list' to find the ID)")
 	cmd.Flags().StringVarP(&ac.FlagUpdateBookmarkExcerpt, "excerpt", "e", "", "A brief description of the link")
-	cmd.Flags().StringVarP(&ac.FlagUpdateBookmarkTitle, "title", "t", "", "The title for the new raindrop")
-	cmd.Flags().StringVarP(&ac.FlagUpdateBookmarkLink, "link", "l", "", "The URL for the new raindrop")
+	cmd.Flags().StringVarP(&ac.FlagUpdateBookmarkTitle, "title", "t", "", "The title for the new bookmark")
+	cmd.Flags().StringVarP(&ac.FlagUpdateBookmarkLink, "link", "l", "", "The URL for the new bookmark")
 	cmd.Flags().StringVarP(&ac.FlagUpdateBookmarkNote, "note", "n", "", "Add a note to the bookmark")
 	cmd.Flags().StringSliceVar(&ac.FlagUpdateBookmarkHighlight, "highlight", []string{}, "Bookmark highlight to set; can be used more than once")
 	cmd.Flags().BoolVarP(&ac.FlagUpdateBookmarkImportant, "important", "i", false, "Set the important flag to true")
@@ -133,11 +135,19 @@ func (ac *AppContext) GetSortCollectionFlags(cmd *cobra.Command) {
 }
 
 func (ac *AppContext) GetUpdateCollectionFlags(cmd *cobra.Command) {
-	cmd.Flags().Int64Var(&ac.FlagUpdateCollectionCollectionId, "id", -1, "The collection ID of the new raindrop (use 'raindrop collections list' to find the ID)")
-	cmd.Flags().StringVarP(&ac.FlagUpdateCollectionTitle, "title", "t", "", "The title for the new collection")
-	cmd.Flags().Int64VarP(&ac.FlagUpdateCollectionParent, "parent", "p", 0, "The parent ID of the new collection")
-	cmd.Flags().BoolVarP(&ac.FlagUpdateCollectionPublic, "public", "", false, "Make the new collection private")
+	cmd.Flags().Int64Var(&ac.FlagUpdateCollectionCollectionId, "id", -1, "The collection ID (use 'raindrop collections list' to find the ID)")
+	cmd.Flags().StringVarP(&ac.FlagUpdateCollectionTitle, "title", "t", "", "The title for the collection")
+	cmd.Flags().Int64VarP(&ac.FlagUpdateCollectionParent, "parent", "p", 0, "The parent ID of the collection")
+	cmd.Flags().BoolVarP(&ac.FlagUpdateCollectionPublic, "public", "", false, "Make the collection private")
 	cmd.Flags().StringVarP(&ac.FlagUpdateCollectionView, "view", "v", "list", fmt.Sprintf("The view for this collection; one of %s", strings.Join(ac.ValidCollectionsViews, ",")))
+
+	cmd.MarkFlagRequired("id")
+}
+
+// Highlights
+func (ac *AppContext) GetRemoveHighlightFlags(cmd *cobra.Command) {
+	cmd.Flags().Int64Var(&ac.FlagRemoveHighlightBookmarkId, "bid", -1, "The bookmark ID (use 'raindrop bookmarks list' to find the ID)")
+	cmd.Flags().StringSliceVar(&ac.FlagRemoveHighlightHighlightId, "id", []string{}, "The highlight ID to remove (use 'raindrop highlights list' to find the ID); can be used more than once")
 
 	cmd.MarkFlagRequired("id")
 }
