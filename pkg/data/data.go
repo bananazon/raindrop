@@ -108,6 +108,13 @@ type ListCollectionsResult struct {
 	ErrorMessage string        `json:"errorMessage" yaml:"errorMessage"`
 }
 
+type ListCollectionsChildrenResult struct {
+	Result       bool               `json:"result" yaml:"result"`
+	Items        []*CollectionChild `json:"items" yaml:"items"`
+	Count        int                `json:"count" yaml:"count"`
+	ErrorMessage string             `json:"errorMessage" yaml:"errorMessage"`
+}
+
 type RemoveCollectionResult struct {
 	Result       bool   `json:"result" yaml:"result"`
 	ErrorMessage string `json:"errorMessage" yaml:"errorMessage"`
@@ -233,6 +240,24 @@ type Collection struct {
 	Color       string           `json:"color" yaml:"color"`
 	Access      CollectionAccess `json:"access" yaml:"access"`
 	Author      bool             `json:"author" yaml:"autor"`
+}
+
+type CollectionChild struct {
+	Id            uint64            `json:"_id" yaml:"_id"`
+	Access        *CollectionAccess `json:"access" yaml:"access"`
+	Collaborators map[string]string `json:"collaborators" yaml:"collaborators"`
+	Color         string            `json:"color" yaml:"color"`
+	Count         uint64            `json:"count" yaml:"count"`
+	Cover         []string          `json:"cover" yaml:"cover"`
+	Created       time.Time         `json:"created" yaml:"created"`
+	Expanded      bool              `json:"expanded" yaml:"expanded"`
+	LastUpdate    time.Time         `json:"lastUpdate" yaml:"lastUpdate"`
+	Parent        map[string]uint64 `json:"parent" yaml:"parent"`
+	Public        bool              `json:"public" yaml:"public"`
+	Sort          uint64            `json:"sort" yaml:"sort"`
+	Title         string            `json:"title" yaml:"title"`
+	User          UserRef           `json:"user" yaml:"user"`
+	View          string            `json:"view" yaml:"view"`
 }
 
 //
