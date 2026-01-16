@@ -4,14 +4,21 @@
 
 ## Installation
 
-1. `git clone https://github.com/bananazon/raindrop.git`
-2. `cd raindrop`
-3. `make install`
-4. `cp config.SAMPLE.yaml ~/.config/raindrop/config.yaml`
-5. [Create a token](#create-a-token)
-6. `raindrop encrypt-token`
-7. Verify that there is now an `encryptedApiToken` field in `~/.config/raindrop/config.yaml`
-8. Test with something like `raindrop collections list`
+* Clone this repository
+* `cd` to the repository root
+* Type `make install`
+* `cp config.yaml.example ~/.config/raindrop/config.yaml`
+* [Create a token](#create-a-token)
+* `raindrop encrypt-token`
+* Verify that there is now an `encryptedApiToken` field in `~/.config/raindrop/config.yaml`
+* Test with something like `raindrop collections list`
+
+* You can also use homebrew
+    * `brew tap bananazon/homebrew`
+    * `brew update`
+    * `brew install bananazon/homebrew/raindrop`
+    * [Create a token](#create-a-token)
+    * `raindrop encrypt-token`
 
 ## Create a Token
 1. Login to your [raindrop](https://raindrop.io) account
