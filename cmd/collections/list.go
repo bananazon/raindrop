@@ -33,6 +33,11 @@ func newListCollectionsCmd(ctx *context.AppContext) (c *cobra.Command) {
 				ctx.Logger.Exit(1)
 			}
 
+			if len(collections) <= 0 {
+				fmt.Fprintln(os.Stdout, "No collections found")
+				return
+			}
+
 			if ctx.FlagPageStyle == "list" {
 				for _, collection := range collections {
 					fmt.Fprintf(os.Stdout, "%s = %s\n", "         title", collection.Title)

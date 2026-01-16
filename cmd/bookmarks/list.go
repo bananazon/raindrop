@@ -43,6 +43,11 @@ func newListBookmarksCmd(ctx *context.AppContext) (c *cobra.Command) {
 				ctx.Logger.Exit(1)
 			}
 
+			if len(bookmarks) <= 0 {
+				fmt.Fprintln(os.Stdout, "No bookmarks found")
+				return
+			}
+
 			collections, err := ctx.RD.ListCollections()
 			if err != nil {
 				ctx.Logger.Errorf("Failed to get a list of collections: %s", err.Error())

@@ -9,15 +9,18 @@ import (
 	"github.com/djherbis/times"
 )
 
+// Version parts (overridden at build time)
 var (
 	Major  = "0"
 	Minor  = "5"
 	Patch  = "7"
-	Suffix = "dev"
+	Suffix = "" // empty by default, use -X to set dev during local builds
 )
 
-// Version returns a version string based on the SemVer parts defined at compile time. Dev builds will result in
-// 0.0.0-dev. Prefix (v) and suffix can be optionally included, while suffix will only be included if one is defined.
+// Version returns a version string.
+// prefix=true -> add "v" at start
+// suffix=true -> add Suffix if non-empty
+// versionFull=true -> add OS/ARCH and build timestamp
 func Version(prefix, suffix, versionFull bool) string {
 	version := fmt.Sprintf("%s.%s.%s", Major, Minor, Patch)
 
@@ -36,10 +39,8 @@ func Version(prefix, suffix, versionFull bool) string {
 		path, err := exec.LookPath("raindrop")
 		if err == nil && path != "" {
 			t, err := times.Stat(path)
-			if err == nil {
-				if t.HasBirthTime() {
-					creationTime = t.BirthTime()
-				}
+			if err == nil && t.HasBirthTime() {
+				creationTime = t.BirthTime()
 			}
 		}
 

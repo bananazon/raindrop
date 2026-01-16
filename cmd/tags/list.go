@@ -32,6 +32,11 @@ func newListTagsCmd(ctx *context.AppContext) (c *cobra.Command) {
 				ctx.Logger.Exit(1)
 			}
 
+			if len(listTagsResult.Items) <= 0 {
+				fmt.Fprintln(os.Stdout, "No tags found")
+				return
+			}
+
 			if ctx.FlagPageStyle == "list" {
 				for _, tag := range listTagsResult.Items {
 					fmt.Fprintf(os.Stdout, "%s = %s\n", "      id", tag.Id)
